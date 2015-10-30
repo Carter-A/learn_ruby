@@ -20,7 +20,7 @@ class TestSimonSays < MiniTest::Test
   end
 
   def test_shout_multiple_words
-    assert_equal "HELLO WORLD", shoult("hello world")
+    assert_equal "HELLO WORLD", shout("hello world") #fixed typo shoult to shout
   end
 
   def test_repeat
