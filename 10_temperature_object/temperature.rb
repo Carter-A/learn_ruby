@@ -1,19 +1,18 @@
 class Temperature
   def initialize(options = {})
-    @f = options[:f]
-    @c = options[:c]
+    @options = options
   end
 
   def to_celsius
-    ((@f - 32) * (5.0/9.0)).round
+    @options.key?(:c) ? @options[:c] : (@options[:f] - 32) * 5.0 / 9
   end
 
   def to_fahrenheit
-    ((@c * (9.0/5.0)) + 32).round
+    @options.key?(:f) ? @options[:f] : (@options[:c] * 9.0 / 5) + 32
   end
 
-  def self.in_fahrenheit(f)
-    Temperature.new(:f => f)
+  def self.in_fahrenheit(num)
+    self.new(:f => num)
   end
 
   def self.in_celsius(c)
@@ -21,5 +20,32 @@ class Temperature
   end
 end
 
-temp = Temperature.new(:c => 100)
-puts Temperature.in_celsius(50).to_celsius
+class Celsius < Temperature
+  def initialize(num, options = {})
+    @options = options
+    @options[:c] = num
+  end
+
+  def in_fahrenheit
+    super
+  end
+
+  def in_celsius
+    super
+  end
+end
+
+class Fahrenheit < Temperature
+  def initialize(num, options = {})
+    @options = options
+    @options[:f] = num
+  end
+
+  def in_fahrenheit
+    super
+  end
+
+  def in_celsius
+    super
+  end
+end
